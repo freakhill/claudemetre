@@ -8,11 +8,26 @@ process panel (group by session, freeze, kill).
 
 Grab the latest signed `.app` from **[Releases](../../releases/latest)** → `claudemetre-<version>.zip`.
 
-The app is signed with an Apple Development certificate but **not notarized**, so Gatekeeper
-will block it on first launch. To open it:
+The app is signed with an Apple Development certificate but **not notarized**, so on first
+launch Gatekeeper blocks it with *"Apple could not verify 'claudemetre.app' is free of
+malware."* This is expected for a non-notarized app — here's how to open it.
 
-- Right-click `claudemetre.app` → **Open** → **Open**, or
-- `xattr -dr com.apple.quarantine /Applications/claudemetre.app`
+**1. Move `claudemetre.app` to `/Applications`** (drag it there).
+
+**2. Clear the quarantine flag** (most reliable — Terminal):
+
+```sh
+xattr -dr com.apple.quarantine /Applications/claudemetre.app
+```
+
+Then double-click it normally.
+
+**Or, without Terminal:**
+- Double-click the app → you'll see the block → open **System Settings → Privacy &
+  Security**, scroll to the message about claudemetre, click **"Open Anyway"**, then confirm.
+- (macOS 14 and earlier also support: right-click the app → **Open** → **Open**.)
+
+This is a one-time step per download. It does **not** disable Gatekeeper system-wide.
 
 ## What it does
 
